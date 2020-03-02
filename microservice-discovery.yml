@@ -1,0 +1,13 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: microservice-discovery
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://microservice-discovery:microservice-discovery@localhost:8761/eureka/
+  register-with-eureka: false
+  fetch-registry: false

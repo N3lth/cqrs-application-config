@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: payment
+  datasource:
+    url: jdbc:postgresql://localhost:5433/cqrs
+    username: cqrs
+    password: cqrs
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    locations: classpath:db/migration
+    schemas: public
+    table: schema-history
+    baselineOnMigrate: true
+    out-of-order: true
+    ignore-missing-migrations: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  instance:
+    instance-id: payment0
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    region: default
+    registryFetchIntervalSeconds: 5
+
+axon:
+  kafka:
+    client-id: payment-client
+    default-topic: general_event_topic
+    consumer:
+      group-id: payment-group
+      auto-offset-reset: earliest
+      bootstrapservers: localhost:9092
+    producer:
+      retries: 5
+      bootstrapservers: localhost:9092
+      transaction-id-prefix: payment
+  eventhandling:
+    processors:
+      payment:
+        source: kafkaMessageSource
+        mode: TRACKING
+        threadCount: 1
+        batchSize: 1
+  distributed:
+    enabled: true
