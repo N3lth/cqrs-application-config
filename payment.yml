@@ -43,6 +43,11 @@ axon:
       transaction-id-prefix: payment
   eventhandling:
     processors:
+      PaymentSagaEventListenerProcessor:
+        source: kafkaMessageSource
+        mode: TRACKING
+        threadCount: 1
+        batchSize: 1
       payment:
         source: kafkaMessageSource
         mode: TRACKING
