@@ -5,7 +5,7 @@ spring:
   application:
     name: payment-validation
   datasource:
-    url: jdbc:postgresql://localhost:5434/validation
+    url: jdbc:postgresql://validationdb:5434/validation
     username: validation
     password: validation
     driver-class-name: org.postgresql.Driver
@@ -36,10 +36,10 @@ axon:
     consumer:
       group-id: validation-group
       auto-offset-reset: earliest
-      bootstrapservers: localhost:9092
+      bootstrapservers: kafka:9092
     producer:
       retries: 5
-      bootstrapservers: localhost:9092
+      bootstrapservers: kafka:9092
       transaction-id-prefix: validation
   eventhandling:
     processors:
