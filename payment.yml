@@ -5,7 +5,7 @@ spring:
   application:
     name: payment
   datasource:
-    url: jdbc:postgresql://localhost:5433/cqrs
+    url: jdbc:postgresql://paymentdb:5433/cqrs
     username: cqrs
     password: cqrs
     driver-class-name: org.postgresql.Driver
@@ -36,10 +36,10 @@ axon:
     consumer:
       group-id: payment-group
       auto-offset-reset: earliest
-      bootstrapservers: localhost:9092
+      bootstrapservers: kafka:9092
     producer:
       retries: 5
-      bootstrapservers: localhost:9092
+      bootstrapservers: kafka:9092
       transaction-id-prefix: payment
   eventhandling:
     processors:
